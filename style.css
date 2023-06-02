@@ -1,0 +1,27 @@
+header {
+    text-align: center;
+    padding-bottom: 100px;
+    padding-top: 50px;
+}
+
+header {
+    background-color: blue;
+    color: white;
+}
+
+body {
+    background-color: aqua;
+    color: white;
+}
+
+.search-side {
+    padding-top: 75px;
+}
+
+.result-side {
+    padding-top: 75px;
+}
+
+#buttons {
+    padding-top: 75px;
+}
