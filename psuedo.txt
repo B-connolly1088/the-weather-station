@@ -15,7 +15,7 @@ THEN I am again presented with current and future conditions for that city
 
 
 // city search form
-// search form
+// search form -user input
 // submit button -event listener
 // geocoding api fetch 
 
