@@ -1,6 +1,9 @@
 var submitButton = $("#inputButton");
 var inputField = $("#inputField");
 var cities = []
+var apiKey = "1ed06e8681c5428384c238ca80f199dc"
+
+//new url https://api.openweathermap.org/data/2.5/weather?q=houston&units=imperial&appid=
 
 //search form user input
 submitButton.on("click", function(event) {//upon click event function is called
@@ -24,15 +27,32 @@ function populateButtons() {//executes pupulateButtons function
         cities = ["Atlanta", "Denver", "Boston"];//otherwise just keep these 3 values
     }
     
-$("#buttons").empty();//empty the button so than only one populates per search
+$("#buttons").empty();//empty the button so that only one populates per search
 //dynamically creates buttons
-for (i = 0; i < cities.length; i++) {//for loop
-    var city = cities[i];
-    var template = `<button type="button" class="btn btn-primary cityBtn">${city}</button>`;
-    $("#buttons").append(template);
+for (i = 0; i < cities.length; i++) {//establishing iteration through cities array
+    var city = cities[i];//creating variable of city = to the index position of cities array
+    var template = `<button type="button" class="btn btn-primary cityBtn">${city}</button>`;//creating a button
+    $("#buttons").append(template);//appending button to the #buttons section
 
 };
 
 }
+
+var city = "Boston"
+
+function getApi() {
+    var requestUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=' + city + '&appid=' + apiKey;
+    console.log(requestUrl);
+  
+    fetch(requestUrl)
+      .then(function (response) {
+        // console.log(response);
+        return response.json();
+        
+      });
+  }
+
+getApi();
+  
 
 populateButtons();
