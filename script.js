@@ -55,16 +55,48 @@ function getApi(city) {
         var longitude = data.lon;
         var latitude = data.lat;
         dailyForcast(latitude, longitude);
-        fiveDay(latitude, longitude);
+        
       })
   }
 
   function dailyForcast(lat, lon) {
     console.log(lat, lon);
+    var url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial`
+    // var daily = [];
+    fetch(url)
+    .then(function (response) {
+      return response.json();
+      
+
+  }).then(function(data) {
+    console.log(data);
+    // var daily = [];
+    // daily.push(data);
+    console.log(data)
+    const daily = document.querySelector("#dailyForcast");
+    // daily(empty);
+    const template = `
+    <div class="card bg-success p-3 col">
+             <div class="card-body">
+               <h3>${data.dt_txt}</h3>
+               <img src="https://openweathermap.org/img/wn/${data.weather[0].icon}.png" alt="${data.weather[0].description}"> 
+               <div>Temp: <span>${data.main.temp}</span> *F</div>
+               <div>Wind: <span>${data.wind.speed}</span> MPH</div>
+               <div>Humidity: <span>${data.main.humidity}</span> %</div>
+             </div>
+         </div>
+    `
+    daily.innerHTML = template;
+    console.log(template)
+  })
+
+  
+  
+
+  
 
 
   }
-
 
 
   function fiveDay(lat, lon) {
@@ -75,7 +107,7 @@ function getApi(city) {
       return response.json();
       
     }).then(function(data) {
-      console.log(data);
+      // console.log(data);
       var days = [];
       for (let i = 0; i < data.list.length; i+=8) {
         const day = data.list[i];
