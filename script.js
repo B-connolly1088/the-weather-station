@@ -61,7 +61,7 @@ function getApi(city) {
 
   function dailyForcast(lat, lon) {
     console.log(lat, lon);
-    
+
 
   }
 
@@ -91,7 +91,7 @@ function getApi(city) {
         var template = `
         <div class="card bg-success p-3 col">
           <div class="card-body">
-            <h3>${day.dt_text}</h3>
+            <h3>${day.dt_txt}</h3>
             <img src="https://openweathermap.org/img/wn/${day.weather[0].icon}.png" alt="${day.weather[0].description}">
             <div>Temp: <span>${day.main.temp}</span> *F</div>
             <div>Wind: <span>${day.wind.speed}</span> MPH</div>
