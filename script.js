@@ -14,6 +14,7 @@ submitButton.on("click", function(event) {//upon click event function is called
     localStorage.setItem("cities", JSON.stringify(cities));//creates the key of cities in local storage stringifies the value of the cities variable
     inputField.val("");//clears the input field
     populateButtons();//calls populate buttons function
+    getApi(userInput);
     // console.log(userInput);
 })
 
@@ -24,7 +25,7 @@ function populateButtons() {//executes pupulateButtons function
     if (localList) {//if localList exists
         cities = JSON.parse(localList);//redefine the cities variable to the value of the json parsed string localList
     } else {
-        cities = ["Atlanta", "Denver", "Boston"];//otherwise just keep these 3 values
+        cities = [];//otherwise just keep these 3 values
     }
     
 $("#buttons").empty();//empty the button so that only one populates per search
@@ -38,9 +39,9 @@ for (i = 0; i < cities.length; i++) {//establishing iteration through cities arr
 
 }
 
-var city = "Boston"
+// var city = "Boston"
 
-function getApi() {
+function getApi(city) {
     var requestUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=' + city + '&appid=' + apiKey;
     console.log(requestUrl);
   
@@ -49,10 +50,66 @@ function getApi() {
         // console.log(response);
         return response.json();
         
-      });
+      }).then(function(response) {
+        var data = response[0];
+        var longitude = data.lon;
+        var latitude = data.lat;
+        dailyForcast(latitude, longitude);
+        fiveDay(latitude, longitude);
+      })
   }
 
-getApi();
+  function dailyForcast(lat, lon) {
+    console.log(lat, lon);
+    
+
+  }
+
+
+
+  function fiveDay(lat, lon) {
+    var url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial`
+
+    fetch(url)
+    .then(function (response) {
+      return response.json();
+      
+    }).then(function(data) {
+      console.log(data);
+      var days = [];
+      for (let i = 0; i < data.list.length; i+=8) {
+        const day = data.list[i];
+        days.push(day);
+        
+        
+      }
+      console.log(days);
+      var fiveDay = $("#fiveDay");
+      fiveDay.empty();
+      for (let i = 0; i < days.length; i++) {
+        const day = days[i];
+        var template = `
+        <div class="card bg-success p-3 col">
+          <div class="card-body">
+            <h3>${day.dt_text}</h3>
+            <img src="https://openweathermap.org/img/wn/${day.weather[0].icon}.png" alt="${day.weather[0].description}">
+            <div>Temp: <span>${day.main.temp}</span> *F</div>
+            <div>Wind: <span>${day.wind.speed}</span> MPH</div>
+            <div>Humidity: <span>${day.main.humidity}</span> %</div>
+          </div>
+        </div>
+        `
+        fiveDay.append(template);
+      }
+      
+    })
+
+    
+  }
+
+
+// getApi();
+
   
 
 populateButtons();
