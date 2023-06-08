@@ -42,7 +42,7 @@ for (i = 0; i < cities.length; i++) {//establishing iteration through cities arr
 // var city = "Boston"
 
 function getApi(city) {
-    var requestUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=' + city + '&appid=' + apiKey;
+    var requestUrl = 'https://api.openweathermap.org/geo/1.0/direct?q=' + city + '&appid=' + apiKey;
     console.log(requestUrl);
   
     fetch(requestUrl)
@@ -55,8 +55,15 @@ function getApi(city) {
         var longitude = data.lon;
         var latitude = data.lat;
         dailyForcast(latitude, longitude);
+        fiveDay(latitude, longitude);
         
       })
+  }
+
+  function dateParser(unix) {
+    // convert to date object
+    // format as MM/DD/YYYY
+    return 'MM/DD/YYYY'
   }
 
   function dailyForcast(lat, lon) {
@@ -73,12 +80,13 @@ function getApi(city) {
     // var daily = [];
     // daily.push(data);
     console.log(data)
-    const daily = document.querySelector("#dailyForcast");
+    const daily = $("#dailyForcast");
     // daily(empty);
     const template = `
     <div class="card bg-success p-3 col">
              <div class="card-body">
                <h3>${data.dt_txt}</h3>
+               <h4>${dateParser(data.dt)}</h4>
                <img src="https://openweathermap.org/img/wn/${data.weather[0].icon}.png" alt="${data.weather[0].description}"> 
                <div>Temp: <span>${data.main.temp}</span> *F</div>
                <div>Wind: <span>${data.wind.speed}</span> MPH</div>
@@ -86,7 +94,7 @@ function getApi(city) {
              </div>
          </div>
     `
-    daily.innerHTML = template;
+    daily.append(template);
     console.log(template)
   })
 
