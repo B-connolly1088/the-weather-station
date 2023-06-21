@@ -14,12 +14,12 @@ There is no installation, simply navigate to the webpage and enter data.
 
 To use this application a user need only enter a city into the search field and press search. The requested data will be displayed dynamically onto the page.
 
-To add a screenshot, create an `assets/images` folder in your repository and upload your screenshot to it. Then, using the relative file path, add it to your README using the following syntax:
-
-![The Weather Spot](./images/Screenshot%202023-06-06%20213406.png)
-![The Weather Spot](./images/Screenshot%202023-06-06%20213418.png)
+![AppScreenshot](/images/Screenshot%202023-06-21%20173808.png)
+![AppScreenshot](/images/Screenshot%202023-06-21%20173827.png)
 
 ## Credits
+
+Justin Moore
 
 www.openweathermap.org
 

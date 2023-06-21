@@ -62,6 +62,7 @@ function getApi(city) {
 
   function dateParser(unix) {
     // convert to date object
+ 
     // format as MM/DD/YYYY
     return 'MM/DD/YYYY'
   }
@@ -85,7 +86,7 @@ function getApi(city) {
     const template = `
     <div class="card bg-success p-3 col">
              <div class="card-body">
-               <h3>${data.dt_txt}</h3>
+              //  <h3>${data.dt_txt}</h3>
                <h4>${dateParser(data.dt)}</h4>
                <img src="https://openweathermap.org/img/wn/${data.weather[0].icon}.png" alt="${data.weather[0].description}"> 
                <div>Temp: <span>${data.main.temp}</span> *F</div>
